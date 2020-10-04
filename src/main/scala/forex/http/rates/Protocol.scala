@@ -6,7 +6,6 @@ import forex.domain.Rate.Pair
 import forex.domain._
 import io.circe._
 import io.circe.generic.semiauto._
-import io.circe.java8.time._
 
 object Protocol {
 

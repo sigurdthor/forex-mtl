@@ -3,48 +3,47 @@ import Dependencies._
 name := "forex"
 version := "1.0.1"
 
-scalaVersion := "2.12.10"
+scalaVersion := "2.13.1"
 scalacOptions ++= Seq(
- "-deprecation",
+  "-feature",
+  "-deprecation",
+  "-explaintypes",
+  "-unchecked",
   "-encoding",
   "UTF-8",
-  "-feature",
-  "-language:existentials",
-  "-language:experimental.macros",
   "-language:higherKinds",
-  "-language:implicitConversions",
-  "-unchecked",
-  "-Xfatal-warnings",
-  "-Xfuture",
-  "-Xlint",
-  "-Ydelambdafy:method",
-  "-Xlog-reflective-calls",
-  "-Yno-adapted-args",
-  "-Ypartial-unification",
-  "-Ywarn-dead-code",
-  "-Ywarn-inaccessible",
-  "-Ywarn-unused-import",
-  "-Ywarn-value-discard"
+  "-language:existentials",
+  //"-Xfatal-warnings",
+  "-Xlint:-infer-any,_",
+  "-Ywarn-value-discard",
+  "-Ywarn-numeric-widen",
+  "-Ywarn-extra-implicit"
 )
 
 resolvers +=
   "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
 libraryDependencies ++= Seq(
-  compilerPlugin(Libraries.kindProjector),
+  //compilerPlugin(Libraries.kindProjector),
   Libraries.cats,
   Libraries.catsEffect,
   Libraries.fs2,
   Libraries.http4sDsl,
   Libraries.http4sServer,
   Libraries.http4sCirce,
+  Libraries.http4sClient,
   Libraries.circeCore,
   Libraries.circeGeneric,
   Libraries.circeGenericExt,
   Libraries.circeParser,
-  Libraries.circeJava8,
+  Libraries.logstage,
   Libraries.pureConfig,
   Libraries.logback,
+  Libraries.zioCore,
+  Libraries.zioStreams,
+  Libraries.zioTestCore,
+  Libraries.zioTestSbt,
+  Libraries.zioCats,
   Libraries.scalaTest        % Test,
   Libraries.scalaCheck       % Test,
   Libraries.catsScalaCheck   % Test
