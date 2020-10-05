@@ -3,15 +3,14 @@ package forex
 import cats.effect.Resource
 import forex.config._
 import forex.services.rates.clients.ForexClient
-import forex.services.rates.errors.ForexError
+import forex.services.rates.clients.ForexClient.ForexClient
 import org.http4s.client.Client
 import org.http4s.client.blaze.BlazeClientBuilder
 import org.http4s.server.blaze._
+import zio._
 import zio.clock.Clock
 import zio.console.Console
-import zio._
 import zio.interop.catz._
-import forex.services.rates.clients.ForexClient.ForexClient
 
 import scala.concurrent.ExecutionContext.Implicits
 

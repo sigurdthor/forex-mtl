@@ -13,8 +13,8 @@ import logstage.{LogBIO, LogstageZIO}
 import org.http4s._
 import org.http4s.circe.jsonOf
 import org.http4s.client.Client
-import zio.{Has, IO, Layer, Task, ZEnv, ZIO, ZLayer}
 import zio.interop.catz._
+import zio._
 
 object ForexClient {
 
