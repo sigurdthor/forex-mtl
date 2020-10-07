@@ -15,6 +15,8 @@ import org.http4s.circe.jsonOf
 import org.http4s.client.Client
 import zio.interop.catz._
 import zio._
+import zio.clock.Clock
+import zio.console.Console
 
 object ForexClient {
 
@@ -34,7 +36,7 @@ object ForexClient {
       implicit def entityDecoder[A](implicit decoder: Decoder[A]): EntityDecoder[Task, A] = jsonOf[Task, A]
 
       override def retreiveRate(pair: Rate.Pair): IO[ForexError, Rate] =
-        performRequest[Rate](s"https://localhost:8081/rates?pairs=${pair.show}")
+        performRequest[Rate](s"http://localhost:8081/rates?pairs=${pair.show}")
 
       def performRequest[T](uri: String)(implicit d: Decoder[T]): IO[ForexError, T] = {
         def call(uri: Uri): IO[ForexError, T] = {
@@ -61,8 +63,8 @@ object ForexClient {
 
   object factory {
 
-    def retreiveRate(pair: Rate.Pair): ZIO[AppEnv, ForexError, Rate] =
-      ZIO.accessM[ForexClient](_.get.retreiveRate(pair))
+    def retreiveRate(pair: Rate.Pair): ZIO[ForexClient with Clock with Console, ForexError, Rate] =
+      ZIO.accessM(_.get.retreiveRate(pair))
   }
 
 }

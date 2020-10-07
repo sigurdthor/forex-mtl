@@ -1,8 +1,8 @@
 package forex.services.rates
 
-import cats.Applicative
+import forex.Main.{AppEnv, AppTask}
 import forex.services.rates.interpreters._
 
 object Interpreters {
-  def dummy[F[_]: Applicative](): Algebra[F] = new OneFrameDummy[F]()
+  def dummy(implicit runtime: zio.Runtime[AppEnv]): Algebra[AppTask] = new OneFrameDummy()
 }

@@ -1,39 +1,35 @@
 package forex
 
-import cats.effect.{Concurrent, Timer}
-import forex.Main.AppTask
+import forex.Main.{ AppEnv, AppTask }
 import forex.config.ApplicationConfig
 import forex.http.rates.RatesHttpRoutes
 import forex.programs._
 import forex.services._
 import org.http4s._
 import org.http4s.implicits._
-import org.http4s.server.middleware.{AutoSlash, Timeout}
+import org.http4s.server.middleware.{ AutoSlash, Timeout }
 import zio.interop.catz._
 
-class Module[F[_]: Concurrent: Timer](config: ApplicationConfig) {
+class Module(config: ApplicationConfig)(implicit runtime: zio.Runtime[AppEnv]) {
 
-  private val ratesService: RatesService[F] = RatesServices.dummy()
+  private val ratesService: RatesService[AppTask] = RatesServices.dummy
 
-  private val ratesProgram: RatesProgram[F] = RatesProgram[F](ratesService)
+  private val ratesProgram: RatesProgram[AppTask] = RatesProgram[AppTask](ratesService)
 
-  private val ratesHttpRoutes: HttpRoutes[F] = new RatesHttpRoutes[F](ratesProgram).routes
+  private val ratesHttpRoutes: HttpRoutes[AppTask] = new RatesHttpRoutes[AppTask](ratesProgram).routes
 
-  type PartialMiddleware = HttpRoutes[F] => HttpRoutes[F]
-  type TotalMiddleware   = HttpApp[F] => HttpApp[F]
+  type PartialMiddleware = HttpRoutes[AppTask] => HttpRoutes[AppTask]
+  type TotalMiddleware   = HttpApp[AppTask] => HttpApp[AppTask]
 
   private val routesMiddleware: PartialMiddleware = {
-    { http: HttpRoutes[F] =>
+    { http: HttpRoutes[AppTask] =>
       AutoSlash(http)
     }
   }
 
-  private val appMiddleware: TotalMiddleware = { http: HttpApp[F] =>
+  private val appMiddleware: TotalMiddleware = { http: HttpApp[AppTask] =>
     Timeout(config.http.timeout)(http)
   }
 
-  private val http: HttpRoutes[F] = ratesHttpRoutes
-
-  val httpApp: HttpApp[F] = appMiddleware(routesMiddleware(http).orNotFound)
-
+  val httpApp: HttpApp[AppTask] = appMiddleware(routesMiddleware(ratesHttpRoutes).orNotFound)
 }

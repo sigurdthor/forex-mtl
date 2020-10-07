@@ -27,8 +27,12 @@ object Protocol {
   implicit val pairEncoder: Encoder[Pair] =
     deriveEncoder[Pair]
 
-  implicit val rateEncoder: Encoder[Rate] =
-    deriveEncoder[Rate]
+  implicit val pairDecoder: Decoder[Pair] =
+    deriveDecoder[Pair]
+
+  implicit val rateEncoder: Encoder[Rate] = deriveEncoder[Rate]
+
+  implicit val rateDecoder: Decoder[Rate] = deriveDecoder[Rate]
 
   implicit val responseEncoder: Encoder[GetApiResponse] =
     deriveEncoder[GetApiResponse]

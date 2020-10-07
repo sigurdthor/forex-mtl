@@ -16,17 +16,16 @@ import scala.concurrent.ExecutionContext.Implicits
 
 object Main extends zio.App {
 
-  type AppEnv = Console with Clock with ForexClient
-  type AppTask[A] = RIO[AppEnv, A]
+  type AppEnv      = Console with Clock with ForexClient
+  type AppTask[+A] = RIO[AppEnv, A]
 
   def run(args: List[String]) = server.exitCode
 
   val server = for {
     maybeToken <- system.env("FOREX_TOKEN")
     config <- ConfigFactory.load("app")
-    module = new Module[AppTask](config)
     client <- buildHttpClient
-    _ <- buildHttpServer(module, config, client, maybeToken)
+    _ <- buildHttpServer(config, client, maybeToken)
   } yield ()
 
   private def buildHttpClient: RIO[ZEnv, Resource[Task, Client[Task]]] =
@@ -38,14 +37,14 @@ object Main extends zio.App {
           .resource
       }
 
-  def buildHttpServer(module: Module[AppTask],
-                      config: ApplicationConfig,
+  def buildHttpServer(config: ApplicationConfig,
                       http4sClient: Resource[Task, Client[Task]],
                       maybeAuthToken: Option[String]) =
     http4sClient.use { httpClient =>
       ZIO
         .runtime[AppEnv]
         .flatMap { implicit rts =>
+          val module = new Module(config)
           BlazeServerBuilder[AppTask]
             .bindHttp(config.http.port, config.http.host)
             .withHttpApp(module.httpApp)

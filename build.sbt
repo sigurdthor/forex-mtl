@@ -36,6 +36,8 @@ libraryDependencies ++= Seq(
   Libraries.circeGeneric,
   Libraries.circeGenericExt,
   Libraries.circeParser,
+  Libraries.cacheCaffeine,
+  Libraries.cacheCirce,
   Libraries.logstage,
   Libraries.pureConfig,
   Libraries.logback,
