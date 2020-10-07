@@ -16,17 +16,22 @@ object Dependencies {
     val scalaTest      = "3.1.0"
     val catsScalaCheck = "0.2.0"
     val zio            = "1.0.1"
+    val scalaCache     = "0.28.0"
   }
 
   object Libraries {
-    def circe(artifact: String): ModuleID   = "io.circe"   %% artifact % Versions.circe
-    def http4s(artifact: String): ModuleID  = "org.http4s" %% artifact % Versions.http4s
-    def zio(artifact: String): ModuleID     = "dev.zio"    %% artifact % Versions.zio
-    def zioTest(artifact: String): ModuleID = "dev.zio"    %% artifact % Versions.zio % "test"
+    def circe(artifact: String): ModuleID      = "io.circe"         %% artifact % Versions.circe
+    def http4s(artifact: String): ModuleID     = "org.http4s"       %% artifact % Versions.http4s
+    def zio(artifact: String): ModuleID        = "dev.zio"          %% artifact % Versions.zio
+    def zioTest(artifact: String): ModuleID    = "dev.zio"          %% artifact % Versions.zio % "test"
+    def scalaCache(artifact: String): ModuleID = "com.github.cb372" %% artifact % Versions.scalaCache
 
     lazy val cats       = "org.typelevel" %% "cats-core"   % Versions.cats
     lazy val catsEffect = "org.typelevel" %% "cats-effect" % Versions.catsEffect
     lazy val fs2        = "co.fs2"        %% "fs2-core"    % Versions.fs2
+
+    lazy val cacheCaffeine = scalaCache("scalacache-caffeine")
+    lazy val cacheCirce    = scalaCache("scalacache-circe")
 
     lazy val http4sDsl       = http4s("http4s-dsl")
     lazy val http4sServer    = http4s("http4s-blaze-server")
@@ -38,14 +43,14 @@ object Dependencies {
     lazy val circeParser     = circe("circe-parser")
     //lazy val circeJava8      = circe("circe-java8")
 
-    lazy val zioCore        = zio("zio")
-    lazy val zioStreams = zio("zio-streams")
-    lazy val zioTestCore    = zioTest("zio-test")
-    lazy val zioTestSbt = zioTest("zio-test-sbt")
-    lazy val zioCats    = "dev.zio" %% "zio-interop-cats" % "2.1.4.0"
+    lazy val zioCore     = zio("zio")
+    lazy val zioStreams  = zio("zio-streams")
+    lazy val zioTestCore = zioTest("zio-test")
+    lazy val zioTestSbt  = zioTest("zio-test-sbt")
+    lazy val zioCats     = "dev.zio" %% "zio-interop-cats" % "2.1.4.0"
 
-    lazy val pureConfig = "com.github.pureconfig" %% "pureconfig" % Versions.pureConfig
-    lazy val logstage = "io.7mind.izumi" %% "logstage-core" % "0.10.19"
+    lazy val pureConfig = "com.github.pureconfig" %% "pureconfig"    % Versions.pureConfig
+    lazy val logstage   = "io.7mind.izumi"        %% "logstage-core" % "0.10.19"
 
     // Compiler plugins
     //lazy val kindProjector = "org.spire-math" %% "kind-projector" % Versions.kindProjector

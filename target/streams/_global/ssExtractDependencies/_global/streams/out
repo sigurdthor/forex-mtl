@@ -1,0 +1,54 @@
+[error] sbt.librarymanagement.ResolveException: Error downloading org.spire-math:kind-projector_2.13:0.9.10
+[error]   Not found
+[error]   Not found
+[error]   not found: /home/sigurd/.ivy2/local/org.spire-math/kind-projector_2.13/0.9.10/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/org/spire-math/kind-projector_2.13/0.9.10/kind-projector_2.13-0.9.10.pom
+[error]   not found: https://oss.sonatype.org/content/repositories/snapshots/org/spire-math/kind-projector_2.13/0.9.10/kind-projector_2.13-0.9.10.pom
+[error] 	at lmcoursier.CoursierDependencyResolution.unresolvedWarningOrThrow(CoursierDependencyResolution.scala:245)
+[error] 	at lmcoursier.CoursierDependencyResolution.$anonfun$update$34(CoursierDependencyResolution.scala:214)
+[error] 	at lmcoursier.CoursierDependencyResolution$$Lambda$3731/0000000000000000.apply(Unknown Source)
+[error] 	at scala.util.Either$LeftProjection.map(Either.scala:573)
+[error] 	at lmcoursier.CoursierDependencyResolution.update(CoursierDependencyResolution.scala:214)
+[error] 	at sbt.librarymanagement.DependencyResolution.update(DependencyResolution.scala:60)
+[error] 	at sbt.internal.LibraryManagement$.resolve$1(LibraryManagement.scala:52)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$12(LibraryManagement.scala:102)
+[error] 	at sbt.internal.LibraryManagement$$$Lambda$2906/0000000000000000.apply(Unknown Source)
+[error] 	at sbt.util.Tracked$.$anonfun$lastOutput$1(Tracked.scala:69)
+[error] 	at sbt.util.Tracked$$$Lambda$2808/0000000000000000.apply(Unknown Source)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$20(LibraryManagement.scala:115)
+[error] 	at sbt.internal.LibraryManagement$$$Lambda$2908/0000000000000000.apply(Unknown Source)
+[error] 	at scala.util.control.Exception$Catch.apply(Exception.scala:228)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$11(LibraryManagement.scala:115)
+[error] 	at sbt.internal.LibraryManagement$.$anonfun$cachedUpdate$11$adapted(LibraryManagement.scala:96)
+[error] 	at sbt.internal.LibraryManagement$$$Lambda$2905/0000000000000000.apply(Unknown Source)
+[error] 	at sbt.util.Tracked$.$anonfun$inputChanged$1(Tracked.scala:150)
+[error] 	at sbt.util.Tracked$$$Lambda$2786/0000000000000000.apply(Unknown Source)
+[error] 	at sbt.internal.LibraryManagement$.cachedUpdate(LibraryManagement.scala:129)
+[error] 	at sbt.Classpaths$.$anonfun$updateTask0$5(Defaults.scala:2947)
+[error] 	at sbt.Classpaths$$$Lambda$1386/0000000000000000.apply(Unknown Source)
+[error] 	at scala.Function1.$anonfun$compose$1(Function1.scala:49)
+[error] 	at scala.Function1$$Lambda$1252/0000000000000000.apply(Unknown Source)
+[error] 	at sbt.internal.util.$tilde$greater.$anonfun$$u2219$1(TypeFunctions.scala:62)
+[error] 	at sbt.internal.util.$tilde$greater$$Lambda$2421/0000000000000000.apply(Unknown Source)
+[error] 	at sbt.std.Transform$$anon$4.work(Transform.scala:67)
+[error] 	at sbt.Execute.$anonfun$submit$2(Execute.scala:281)
+[error] 	at sbt.Execute$$Lambda$2433/0000000000000000.apply(Unknown Source)
+[error] 	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:19)
+[error] 	at sbt.Execute.work(Execute.scala:290)
+[error] 	at sbt.Execute.$anonfun$submit$1(Execute.scala:281)
+[error] 	at sbt.Execute$$Lambda$2424/0000000000000000.apply(Unknown Source)
+[error] 	at sbt.ConcurrentRestrictions$$anon$4.$anonfun$submitValid$1(ConcurrentRestrictions.scala:178)
+[error] 	at sbt.ConcurrentRestrictions$$anon$4$$Lambda$2431/0000000000000000.apply(Unknown Source)
+[error] 	at sbt.CompletionService$$anon$2.call(CompletionService.scala:37)
+[error] 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+[error] 	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+[error] 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+[error] 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+[error] 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+[error] 	at java.base/java.lang.Thread.run(Thread.java:847)
+[error] (ssExtractDependencies) sbt.librarymanagement.ResolveException: Error downloading org.spire-math:kind-projector_2.13:0.9.10
+[error]   Not found
+[error]   Not found
+[error]   not found: /home/sigurd/.ivy2/local/org.spire-math/kind-projector_2.13/0.9.10/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/org/spire-math/kind-projector_2.13/0.9.10/kind-projector_2.13-0.9.10.pom
+[error]   not found: https://oss.sonatype.org/content/repositories/snapshots/org/spire-math/kind-projector_2.13/0.9.10/kind-projector_2.13-0.9.10.pom
