@@ -1,22 +1,20 @@
 package forex.services.rates.clients
 
-import forex.Main.AppEnv
+import cats.implicits._
 import forex.domain.Rate
 import forex.services.rates.errors.ForexError
 import forex.services.rates.errors.ForexError.{MalformedUrl, OneFrameLookupFailed}
-import io.circe.Decoder
-import io.circe.generic.auto._
+import forex.services.rates.implicits.Json._
 import izumi.logstage.api.IzLogger
 import izumi.logstage.api.Log.Level.Trace
 import izumi.logstage.sink.ConsoleSink
 import logstage.{LogBIO, LogstageZIO}
 import org.http4s._
-import org.http4s.circe.jsonOf
 import org.http4s.client.Client
-import zio.interop.catz._
 import zio._
 import zio.clock.Clock
 import zio.console.Console
+import zio.interop.catz._
 
 object ForexClient {
 
@@ -33,13 +31,11 @@ object ForexClient {
       lazy val izLogger: IzLogger = IzLogger(Trace, List(textSink))
       lazy val log: LogBIO[IO]    = LogstageZIO.withFiberId(izLogger)
 
-      implicit def entityDecoder[A](implicit decoder: Decoder[A]): EntityDecoder[Task, A] = jsonOf[Task, A]
-
       override def retreiveRate(pair: Rate.Pair): IO[ForexError, Rate] =
-        performRequest[Rate](s"http://localhost:8081/rates?pairs=${pair.show}")
+        performRequest(show"http://localhost:8081/rates?pair=$pair")
 
-      def performRequest[T](uri: String)(implicit d: Decoder[T]): IO[ForexError, T] = {
-        def call(uri: Uri): IO[ForexError, T] = {
+      private def performRequest(uri: String): IO[ForexError, Rate] = {
+        def call(uri: Uri): IO[ForexError, Rate] = {
 
           val headers = maybeToken match {
             case Some(token) => Headers.of(Header("token", token))
@@ -48,10 +44,10 @@ object ForexClient {
 
           log.debug(s"Performing request with uri: $uri") *>
             client
-              .expect[T](Request[Task](Method.GET, uri, headers = headers))
+              .expect[String](Request[Task](Method.GET, uri, headers = headers))
               .foldM(
                 ex => log.error(s"Request error: ${ex.getMessage}") *> IO.fail(OneFrameLookupFailed(ex.getMessage)),
-                response => log.debug(s"Response data: $response") *> ZIO.succeed(response)
+                response => log.debug(s"Response data: $response") *> response.toRate
               )
         }
 

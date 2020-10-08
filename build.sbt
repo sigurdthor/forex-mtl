@@ -3,7 +3,7 @@ import Dependencies._
 name := "forex"
 version := "1.0.1"
 
-scalaVersion := "2.13.1"
+scalaVersion := "2.13.3"
 scalacOptions ++= Seq(
   "-feature",
   "-deprecation",
@@ -31,6 +31,7 @@ libraryDependencies ++= Seq(
   Libraries.http4sDsl,
   Libraries.http4sServer,
   Libraries.http4sCirce,
+  Libraries.circeOptics,
   Libraries.http4sClient,
   Libraries.circeCore,
   Libraries.circeGeneric,

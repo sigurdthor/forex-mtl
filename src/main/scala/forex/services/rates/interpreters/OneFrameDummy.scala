@@ -26,6 +26,6 @@ class OneFrameDummy(implicit runtime: zio.Runtime[AppEnv]) extends Algebra[AppTa
 
   override def get(pair: Rate.Pair): AppTask[Rate] =
     IO.fromFuture { implicit ec =>
-      memoizeF(ttl.some)(retreiveRate(pair).mapError(error => new Exception(error.msg)).toTaskFuture)
+      memoizeF(ttl.some)(retreiveRate(pair).toTaskFuture)
     }
 }

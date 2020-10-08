@@ -41,6 +41,7 @@ object Dependencies {
     lazy val circeGeneric    = circe("circe-generic")
     lazy val circeGenericExt = circe("circe-generic-extras")
     lazy val circeParser     = circe("circe-parser")
+    lazy val circeOptics     = circe("circe-optics")
     //lazy val circeJava8      = circe("circe-java8")
 
     lazy val zioCore     = zio("zio")

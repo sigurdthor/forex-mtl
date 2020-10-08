@@ -10,12 +10,15 @@ case class Rate(
 )
 
 object Rate {
+
   final case class Pair(
       from: Currency,
       to: Currency
-  ) {
+  )
+
+  object Pair {
     implicit val show: Show[Pair] = Show.show { pair =>
-      s"${pair.from.show}${pair.to.show}"
+      show"${pair.from}${pair.to}"
     }
   }
 }

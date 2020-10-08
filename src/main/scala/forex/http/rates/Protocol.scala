@@ -4,6 +4,7 @@ package rates
 import forex.domain.Currency.show
 import forex.domain.Rate.Pair
 import forex.domain._
+import forex.services.rates.implicits.Json.RateJson
 import io.circe._
 import io.circe.generic.semiauto._
 
@@ -29,6 +30,8 @@ object Protocol {
 
   implicit val pairDecoder: Decoder[Pair] =
     deriveDecoder[Pair]
+
+  implicit val rateJsonDecoder: Decoder[RateJson] = deriveDecoder[RateJson]
 
   implicit val rateEncoder: Encoder[Rate] = deriveEncoder[Rate]
 

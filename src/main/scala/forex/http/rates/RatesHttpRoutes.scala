@@ -3,7 +3,6 @@ package rates
 
 import cats.effect.Sync
 import cats.syntax.flatMap._
-import forex.domain.Currency.{EUR, USD}
 import forex.programs.RatesProgram
 import forex.programs.rates.{Protocol => RatesProgramProtocol}
 import org.http4s.HttpRoutes
@@ -12,13 +11,13 @@ import org.http4s.server.Router
 
 class RatesHttpRoutes[F[_]: Sync](rates: RatesProgram[F]) extends Http4sDsl[F] {
 
-  import Converters._, QueryParams._, Protocol._
+  import Converters._, PathParams._, Protocol._
 
   private[http] val prefixPath = "/rates"
 
   private val httpRoutes: HttpRoutes[F] = HttpRoutes.of[F] {
-    case GET -> Root / "ooo"  =>
-      rates.get(RatesProgramProtocol.GetRatesRequest(USD, EUR)).flatMap { rate =>
+    case GET -> Root / "convert" / CurrencyVar(from) / "to" / CurrencyVar(to) =>
+      rates.get(RatesProgramProtocol.GetRatesRequest(from, to)).flatMap { rate =>
         Ok(rate.asGetApiResponse)
       }
   }
