@@ -13,6 +13,7 @@ import scalacache.modes.scalaFuture._
 import zio.IO
 import forex.services.rates.implicits._
 
+import scala.concurrent.{ ExecutionContext, Future }
 import scala.concurrent.duration._
 
 class OneFrameDummy(implicit runtime: zio.Runtime[AppEnv]) extends Algebra[AppTask] {
@@ -26,6 +27,9 @@ class OneFrameDummy(implicit runtime: zio.Runtime[AppEnv]) extends Algebra[AppTa
 
   override def get(pair: Rate.Pair): AppTask[Rate] =
     IO.fromFuture { implicit ec =>
-      memoizeF(ttl.some)(retreiveRate(pair).toTaskFuture)
+      getRate(pair)
     }
+
+  private def getRate(pair: Rate.Pair)(implicit ec: ExecutionContext): Future[Rate] =
+    memoizeF(ttl.some)(retreiveRate(pair).toTaskFuture)
 }

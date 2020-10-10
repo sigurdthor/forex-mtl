@@ -12,7 +12,7 @@ import zio.IO
 
 object Json {
 
-  case class RateJson(from: Currency, to: Currency, bid: Price, ask: Price, price: Price, timestamp: Timestamp)
+  case class RateJson(from: Currency, to: Currency, bid: Price, ask: Price, price: Price, time_stamp: Timestamp)
 
   implicit class RateDecoder(jsonString: String) {
 
@@ -31,7 +31,7 @@ object Json {
       json.as[Seq[RateJson]] match {
         case Left(error) => IO.fail(JsonParsingError(error.message))
         case Right(items) =>
-          IO.fromOption(items.headOption.map(r => Rate(Pair(r.from, r.to), r.price, r.timestamp)))
+          IO.fromOption(items.headOption.map(r => Rate(Pair(r.from, r.to), r.price, r.time_stamp)))
             .orElseFail(OneFrameLookupFailed("Empty response"))
       }
   }
