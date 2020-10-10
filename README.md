@@ -21,8 +21,8 @@
   or other appropriate caching solution.
   
   TODO:
-   - make sophisticated error handling in http4s routes layer
-   - make host and port in service url configurable
+   - make sophisticated error handling in http4s routes layer(DONE)
+   - make host and port in service url configurable(DONE)
    - finish http routes functional test
    
   Possible further improvements:
