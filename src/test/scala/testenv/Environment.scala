@@ -11,9 +11,7 @@ import zio.{IO, Layer, ZIO, ZLayer}
 object TestEnvironment {
 
   def forexClientTest: Layer[Nothing, ForexClient] =
-    ZLayer.succeed(new Service {
-      override def retreiveRate(pair: Rate.Pair): IO[errors.ForexError, Rate] = IO.succeed(Rate(pair, Price(BigDecimal(100)), Timestamp.now))
-    })
+    ZLayer.succeed((pair: Rate.Pair) => IO.succeed(Rate(pair, Price(BigDecimal(100)), Timestamp.now)))
 
   def withEnv[A](task: AppTask[A]) =
     ZIO.environment[AppEnv].provideCustomLayer(Console.live ++ Clock.live ++ forexClientTest) >>> task

@@ -1,6 +1,7 @@
 package forex.http.rates
 
 import forex.domain._
+import forex.services.rates.errors.ForexError
 
 object Converters {
   import Protocol._
@@ -13,6 +14,10 @@ object Converters {
         price = rate.price,
         timestamp = rate.timestamp
       )
+  }
+
+  private[rates] implicit class GetErrorResponseOps(val error: ForexError) extends AnyVal {
+    def asErrorResponse: ErrorResponse = ErrorResponse(error.msg)
   }
 
 }

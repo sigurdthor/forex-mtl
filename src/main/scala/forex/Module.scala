@@ -16,7 +16,7 @@ class Module(config: ApplicationConfig)(implicit runtime: zio.Runtime[AppEnv]) {
 
   private val ratesProgram: RatesProgram[AppTask] = RatesProgram[AppTask](ratesService)
 
-  private val ratesHttpRoutes: HttpRoutes[AppTask] = new RatesHttpRoutes[AppTask](ratesProgram).routes
+  private val ratesHttpRoutes: HttpRoutes[AppTask] = new RatesHttpRoutes(ratesProgram).routes
 
   type PartialMiddleware = HttpRoutes[AppTask] => HttpRoutes[AppTask]
   type TotalMiddleware   = HttpApp[AppTask] => HttpApp[AppTask]

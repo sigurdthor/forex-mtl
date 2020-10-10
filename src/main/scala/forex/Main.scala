@@ -52,6 +52,6 @@ object Main extends zio.App {
             .compile
             .drain
         }
-        .provideCustomLayer(Console.live ++ Clock.live ++ ForexClient.live(httpClient, maybeAuthToken))
+        .provideCustomLayer(Console.live ++ Clock.live ++ ForexClient.live(httpClient, config, maybeAuthToken))
     }
 }

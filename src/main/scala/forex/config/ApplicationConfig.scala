@@ -4,6 +4,7 @@ import scala.concurrent.duration.FiniteDuration
 
 case class ApplicationConfig(
     http: HttpConfig,
+    client: ForexClientConfig
 )
 
 case class HttpConfig(
@@ -11,3 +12,5 @@ case class HttpConfig(
     port: Int,
     timeout: FiniteDuration
 )
+
+case class ForexClientConfig(url: String)

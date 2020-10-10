@@ -1,6 +1,7 @@
 package forex.services.rates.clients
 
 import cats.implicits._
+import forex.config.ApplicationConfig
 import forex.domain.Rate
 import forex.services.rates.errors.ForexError
 import forex.services.rates.errors.ForexError.{MalformedUrl, OneFrameLookupFailed}
@@ -24,7 +25,7 @@ object ForexClient {
     def retreiveRate(pair: Rate.Pair): IO[ForexError, Rate]
   }
 
-  def live(client: Client[Task], maybeToken: Option[String]): Layer[Nothing, ForexClient] =
+  def live(client: Client[Task], config: ApplicationConfig, maybeToken: Option[String]): Layer[Nothing, ForexClient] =
     ZLayer.succeed(new Service {
 
       lazy val textSink           = ConsoleSink.text(colored = true)
@@ -32,7 +33,7 @@ object ForexClient {
       lazy val log: LogBIO[IO]    = LogstageZIO.withFiberId(izLogger)
 
       override def retreiveRate(pair: Rate.Pair): IO[ForexError, Rate] =
-        performRequest(show"http://localhost:8081/rates?pair=$pair")
+        performRequest(show"${config.client.url}/rates?pair=$pair")
 
       private def performRequest(uri: String): IO[ForexError, Rate] = {
         def call(uri: Uri): IO[ForexError, Rate] = {
