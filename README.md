@@ -28,8 +28,9 @@
   Possible further improvements:
   
    - write json decoding unit tests
-   - write integration tests
+   - write integration tests(testcontainers)
    - use tapir for http4s endpoints
    - get rid of Future transformations dealing with memoizeF 
+   - use sttp instead of http4s-client
   
    
