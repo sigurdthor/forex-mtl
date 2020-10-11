@@ -42,7 +42,7 @@ object Dependencies {
     lazy val circeGenericExt = circe("circe-generic-extras")
     lazy val circeParser     = circe("circe-parser")
     lazy val circeOptics     = circe("circe-optics")
-    //lazy val circeJava8      = circe("circe-java8")
+    lazy val circeLiteral    = circe("circe-literal")
 
     lazy val zioCore     = zio("zio")
     lazy val zioStreams  = zio("zio-streams")

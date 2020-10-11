@@ -1,24 +1,23 @@
 package forex.http
 package rates
 
-import cats.effect.Sync
-import cats.syntax.flatMap._
 import forex.Main.AppTask
 import forex.programs.RatesProgram
-import forex.programs.rates.{ Protocol => RatesProgramProtocol }
+import forex.programs.rates.{Protocol => RatesProgramProtocol}
 import forex.services.rates.errors.ForexError
 import io.circe.Encoder
-import org.http4s.{ EntityEncoder, HttpRoutes }
 import org.http4s.circe.jsonEncoderOf
 import org.http4s.dsl.Http4sDsl
 import org.http4s.server.Router
+import org.http4s.{EntityEncoder, HttpRoutes}
 import zio.Task
 import zio.interop.catz._
-import org.http4s.implicits._
 
 class RatesHttpRoutes(rates: RatesProgram[AppTask]) {
 
-  import Converters._, PathParams._, Protocol._
+  import Converters._
+  import PathParams._
+  import Protocol._
 
   object ioz extends Http4sDsl[AppTask]
 

@@ -3,6 +3,8 @@ import Dependencies._
 name := "forex"
 version := "1.0.1"
 
+testFrameworks := Seq(new TestFramework("zio.test.sbt.ZTestFramework"))
+
 scalaVersion := "2.13.3"
 scalacOptions ++= Seq(
   "-feature",
@@ -23,8 +25,9 @@ scalacOptions ++= Seq(
 resolvers +=
   "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
+val SilencerVersion = "1.7.1"
+
 libraryDependencies ++= Seq(
-  //compilerPlugin(Libraries.kindProjector),
   Libraries.cats,
   Libraries.catsEffect,
   Libraries.fs2,
@@ -47,7 +50,19 @@ libraryDependencies ++= Seq(
   Libraries.zioTestCore,
   Libraries.zioTestSbt,
   Libraries.zioCats,
-  Libraries.scalaTest        % Test,
-  Libraries.scalaCheck       % Test,
-  Libraries.catsScalaCheck   % Test
+  Libraries.circeLiteral   % Test,
+  Libraries.scalaTest      % Test,
+  Libraries.scalaCheck     % Test,
+  Libraries.catsScalaCheck % Test,
+  ("com.github.ghik" % "silencer-lib" % SilencerVersion % "provided")
+    .cross(CrossVersion.full),
+  // plugins
+  compilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
+  compilerPlugin(
+    ("org.typelevel" % "kind-projector" % "0.11.0").cross(CrossVersion.full)
+  ),
+  compilerPlugin(
+    ("com.github.ghik" % "silencer-plugin" % SilencerVersion)
+      .cross(CrossVersion.full)
+  )
 )

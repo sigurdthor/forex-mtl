@@ -17,10 +17,9 @@ object RequestHelper {
   ): RIO[R, TestResult] =
     for {
       actual <- actual
-      bodyResult <- expectedBody
-        .fold[RIO[R, TestResult]](
-          assertM(actual.bodyAsText.compile.toVector, isEmpty)
-        )(expected => assertM(actual.as[A], equalTo(expected)))
+      bodyResult <- expectedBody.fold(
+          assert(actual.bodyAsText.compile.toVector, isEmpty)
+        )(expected => assert(actual.as[A], equalTo(expected)))
       statusResult = assert(actual.status, equalTo(expectedStatus))
     } yield bodyResult && statusResult
 }

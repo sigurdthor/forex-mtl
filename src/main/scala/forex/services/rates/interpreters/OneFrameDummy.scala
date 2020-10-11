@@ -1,20 +1,18 @@
 package forex.services.rates.interpreters
 
 import cats.implicits._
-import forex.Main.{ AppEnv, AppTask }
+import forex.Main.{AppEnv, AppTask}
 import forex.domain._
 import forex.services.rates.Algebra
+import forex.services.rates.implicits._
 import scalacache.Cache
 import scalacache.caffeine.CaffeineCache
 import scalacache.memoization._
-import scalacache.serialization.circe._
-import forex.http.rates.Protocol._
 import scalacache.modes.scalaFuture._
 import zio.IO
-import forex.services.rates.implicits._
 
-import scala.concurrent.{ ExecutionContext, Future }
 import scala.concurrent.duration._
+import scala.concurrent.{ExecutionContext, Future}
 
 class OneFrameDummy(implicit runtime: zio.Runtime[AppEnv]) extends Algebra[AppTask] {
 

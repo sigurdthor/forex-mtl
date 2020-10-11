@@ -5,7 +5,7 @@ import forex.config.ApplicationConfig
 import forex.domain.Rate
 import forex.services.rates.errors.ForexError
 import forex.services.rates.errors.ForexError.{MalformedUrl, OneFrameLookupFailed}
-import forex.services.rates.implicits.Json._
+import forex.services.rates.implicits.JsonOps._
 import izumi.logstage.api.IzLogger
 import izumi.logstage.api.Log.Level.Trace
 import izumi.logstage.sink.ConsoleSink

@@ -4,7 +4,7 @@ package rates
 import forex.domain.Currency.show
 import forex.domain.Rate.Pair
 import forex.domain._
-import forex.services.rates.implicits.Json.RateJson
+import forex.services.rates.implicits.JsonOps.RateJson
 import io.circe._
 import io.circe.generic.semiauto._
 

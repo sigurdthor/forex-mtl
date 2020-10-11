@@ -10,7 +10,7 @@ import io.circe.optics.JsonPath.root
 import io.circe.parser.parse
 import zio.IO
 
-object Json {
+object JsonOps {
 
   case class RateJson(from: Currency, to: Currency, bid: Price, ask: Price, price: Price, time_stamp: Timestamp)
 
